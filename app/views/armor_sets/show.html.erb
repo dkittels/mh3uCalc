@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @armor_set.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_armor_set_path(@armor_set) %> |
+<%= link_to 'Back', armor_sets_path %> |
+<%= link_to 'Define Set', {:controller => 'set_editor', :action => 'index', :armor_set => @armor_set.id} %> |

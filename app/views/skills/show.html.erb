@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @skill.name %>
+</p>
+
+<p>
+	<b>Found On Armors:</b>
+<% @armor_skills = @skill.armor_skills.sort_by(&:value).reverse! 
+	@armor_skills.each do |armor_skill| %>
+	<%= armor_skill.equipment.name %> <%= armor_skill.value %>,
+<% end %> 
+</p>
+
+<%= link_to 'Edit', edit_skill_path(@skill) %> |
+<%= link_to 'Back', skills_path %> |
+<%= link_to 'Make New Skill', new_skill_path %>

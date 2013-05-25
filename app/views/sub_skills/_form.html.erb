@@ -1,0 +1,39 @@
+<% 
+	@none_option = options_for_select([['None', 0]])
+	@sub_skill_options = options_from_collection_for_select(SubSkill.all, :id, :name, @sub_skill.skill.try(:id)) 
+	@sub_skill_options = "#{@none_option}\n#{@sub_skill_options}".html_safe
+%>
+
+<%= form_for(@sub_skill) do |f| %>
+  <% if @sub_skill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sub_skill.errors.count, "error") %> prohibited this sub_skill from being saved:</h2>
+
+      <ul>
+      <% @sub_skill.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :skill %><br />
+    <%= f.select(:skill, options_from_collection_for_select(Skill.all, :id, :name, @sub_skill.skill.try(:id))) %> 
+  </div>
+  <div class="field">
+    <%= f.label :parent_sub_skill_id %><br />
+    <%= f.select(:parent_sub_skill_id, @sub_skill_options) %> 
+  </div>
+  <div class="field">
+    <%= f.label :skill_value %><br />
+    <%= f.number_field :skill_value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

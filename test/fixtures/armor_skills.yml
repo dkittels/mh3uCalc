@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  equipment: 
+  skill: 
+  value: 1
+
+two:
+  equipment: 
+  skill: 
+  value: 1

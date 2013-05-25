@@ -1,0 +1,95 @@
+<%= form_for(@equipment) do |f| %>
+  <% if @equipment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@equipment.errors.count, "error") %> prohibited this equipment from being saved:</h2>
+
+      <ul>
+      <% @equipment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :position %><br />
+    <%= f.select(:position, options_for_select( 
+    	[
+			['Weapon', 0],
+			['Helmet', 1],
+			['Chest', 2],
+			['Arms', 3],
+			['Waist', 4],
+			['Feet', 5],
+			['Talisman', 6]
+    	], @equipment.position 
+    	)) 
+    %>
+    <br />
+  </div>
+  <div class="field">
+    <%= f.label :slots %><br />
+    <%= f.select(:slots, options_for_select( 
+    	[0, 1,2,3], @equipment.slots
+    	)) 
+    %> 
+  </div>
+  <div class="field">
+    <%= f.label :rarity %><br />
+    <%= f.select(:rarity, options_for_select( 
+    	[1,2,3,4,5,6,7,8,9,10], @equipment.rarity
+    	)) 
+    %> 
+  </div>
+  <div class="field">
+    <%= f.label :max_defense %><br />
+    <%= f.number_field :max_defense %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :blademaster %><br />
+    <%= f.check_box :blademaster %>
+  </div>
+  <div class="field">
+    <%= f.label :gunner %><br />
+    <%= f.check_box :gunner %>
+  </div>
+  <div class="field">
+    <%= f.label :armor_set %><br />
+    <%= f.select(:armor_set, options_from_collection_for_select(ArmorSet.all, :id, :name, @equipment.armor_set.try(:id))) %> 
+  </div>
+  <div class="field">
+    <%= f.label :fire_res %><br />
+    <%= f.number_field :fire_res %>
+  </div>
+  <div class="field">
+    <%= f.label :water_res %><br />
+    <%= f.number_field :water_res %>
+  </div>
+  <div class="field">
+    <%= f.label :ice_res %><br />
+    <%= f.number_field :ice_res %>
+  </div>
+  <div class="field">
+    <%= f.label :thunder_res %><br />
+    <%= f.number_field :thunder_res %>
+  </div>
+  <div class="field">
+    <%= f.label :dragon_res %><br />
+    <%= f.number_field :dragon_res %>
+  </div>
+  <div class="field">
+    <%= f.label :in_game %><br />
+    <%= f.check_box :in_game %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

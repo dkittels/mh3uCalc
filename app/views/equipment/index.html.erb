@@ -1,0 +1,43 @@
+<h1>Listing equipment</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Slots</th>
+    <th>Armor set</th>
+    <th>Fire res</th>
+    <th>Water res</th>
+    <th>Thunder res</th>
+    <th>Ice res</th>
+    <th>Dragon res</th>
+    <th>Max defense</th>
+    <th>In game</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @equipment.each do |equipment| %>
+  <tr>
+    <td><%= equipment.name %></td>
+    <td><%= get_position_name(equipment.position) %></td>
+    <td><%= equipment.slots %></td>
+    <td><%= equipment.armor_set.name %></td>
+    <td><%= equipment.fire_res %></td>
+    <td><%= equipment.water_res %></td>
+    <td><%= equipment.thunder_res %></td>
+    <td><%= equipment.ice_res %></td>
+    <td><%= equipment.dragon_res %></td>
+    <td><%= equipment.max_defense %></td>
+    <td><%= equipment.in_game %></td>
+    <td><%= link_to 'Show', equipment %></td>
+    <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>
+    <td><%= link_to 'Destroy', equipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Equipment', new_equipment_path %>

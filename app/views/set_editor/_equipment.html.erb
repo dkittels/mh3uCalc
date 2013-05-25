@@ -1,0 +1,26 @@
+<tr>
+	<td>
+<%=	label_tag("equip_name_#{slot}", "#{get_position_name(slot.to_i)} Name") %><br/>
+<%= text_field_tag "equip_name_#{slot}" %>
+	</td>
+	<td>
+<%=	label_tag("slots_#{slot}", "# of Slots") %><br/>
+<%= select_tag( "slots_#{slot}", options_for_select([0,1,2,3]) ) %>
+	</td>
+	<td>
+<%=	label_tag("skill_1_#{slot}", "Skill 1 Value") %><br/>
+<%= text_field_tag "skill_1_#{slot}" %>
+	</td>
+	<td>
+<%=	label_tag("skill_2_#{slot}", "Skill 2 Value") %><br/>
+<%= text_field_tag "skill_2_#{slot}" %>
+	</td>
+	<td>
+<%=	label_tag("skill_3_#{slot}", "Skill 3 Value") %><br/>
+<%= text_field_tag "skill_3_#{slot}" %>
+	</td>
+	<td>
+<%=	label_tag("skill_4_#{slot}", "Skill 4 Value") %><br/>
+<%= text_field_tag "skill_4_#{slot}" %>
+	</td>
+</tr>

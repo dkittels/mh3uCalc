@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Equipment:</b>
+  <%= @armor_skill.equipment %>
+</p>
+
+<p>
+  <b>Skill:</b>
+  <%= @armor_skill.skill %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @armor_skill.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_equipment_armor_skill_path(@equipment, @armor_skill) %> |
+<%= link_to 'Back', equipment_armor_skills_path %>

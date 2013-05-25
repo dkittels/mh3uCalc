@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  skill: 
+  parent_sub_skill: 
+  skill_value: 1
+
+two:
+  name: MyString
+  skill: 
+  parent_sub_skill: 
+  skill_value: 1

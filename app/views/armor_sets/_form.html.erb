@@ -1,0 +1,21 @@
+<%= form_for(@armor_set) do |f| %>
+  <% if @armor_set.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@armor_set.errors.count, "error") %> prohibited this armor_set from being saved:</h2>
+
+      <ul>
+      <% @armor_set.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

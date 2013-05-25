@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @equipment.name %>
+</p>
+
+<p>
+  <b>Position:</b>
+  <%= get_position_name(@equipment.position) %>
+</p>
+
+<p>
+  <b>Slots:</b>
+  <%= @equipment.slots %>
+</p>
+
+<p>
+  <b>Armor set:</b>
+  <%= @equipment.armor_set.name %>
+</p>
+
+<p>
+  <b>Fire res:</b>
+  <%= @equipment.fire_res %>
+</p>
+
+<p>
+  <b>Water res:</b>
+  <%= @equipment.water_res %>
+</p>
+
+<p>
+  <b>Thunder res:</b>
+  <%= @equipment.thunder_res %>
+</p>
+
+<p>
+  <b>Ice res:</b>
+  <%= @equipment.ice_res %>
+</p>
+
+<p>
+  <b>Dragon res:</b>
+  <%= @equipment.dragon_res %>
+</p>
+
+<p>
+  <b>Max defense:</b>
+  <%= @equipment.max_defense %>
+</p>
+
+<p>
+  <b>In game:</b>
+  <%= @equipment.in_game %>
+</p>
+
+<p>
+	<b>Armor Skills:</b>
+<% @equipment.armor_skill.each do |armor_skill| %>
+	<%= armor_skill.skill.name %> <%= armor_skill.value %>,
+<% end %> 
+</p>
+
+<%= link_to 'Edit', edit_equipment_path(@equipment) %> |
+<%= link_to 'Back', equipment_index_path %> |
+<%= link_to 'Edit Skiils', equipment_armor_skills_path(@equipment) %> |
+<%= link_to 'New Skill', new_equipment_armor_skill_path(@equipment) %>
+

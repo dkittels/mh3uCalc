@@ -1,0 +1,57 @@
+<h1><%= @armor_set.name %> Armor Set</h1>
+
+<%
+	@none_option = options_for_select([['None', 0]])
+	@skill_options = options_from_collection_for_select(Skill.all, :id, :name) 
+	@skill_options = "#{@none_option}\n#{@skill_options}".html_safe
+%>
+
+<%= form_tag("", :method => "post") do |f| %>
+  <div class="field">
+    <%= label_tag(:max_defense, 'Max Defense') %><br />
+    <%= text_field_tag :max_defense %>
+  </div>
+  <div class="field">
+    <%= label_tag(:fire_res, 'Fire Res') %><br />
+    <%= text_field_tag :fire_res %>
+  </div>
+  <div class="field">
+    <%= label_tag(:water_res, 'Water Res') %><br />
+    <%= text_field_tag :water_res %>
+  </div>
+  <div class="field">
+    <%= label_tag(:ice_res, 'Ice Res') %><br />
+    <%= text_field_tag :ice_res %>
+  </div>
+  <div class="field">
+    <%= label_tag(:ice_res, 'Thunder Res') %><br />
+    <%= text_field_tag :thunder_res %>
+  </div>
+  <div class="field">
+    <%= label_tag(:dragon_res, 'Dragon Res') %><br />
+    <%= text_field_tag :dragon_res %>
+  </div>
+  <div class="field">
+    <%= label_tag(:skill_1, 'Skill 1') %><br />
+    <%= select_tag(:skill_1, @skill_options) %>
+  </div>
+  <div class="field">
+    <%= label_tag(:skill_2, 'Skill 2') %><br />
+    <%= select_tag(:skill_2, @skill_options) %>
+  </div>
+  <div class="field">
+    <%= label_tag(:skill_3, 'Skill 3') %><br />
+    <%= select_tag(:skill_3, @skill_options) %>
+  </div>
+  <div class="field">
+    <%= label_tag(:skill_4, 'Skill 4') %><br />
+    <%= select_tag(:skill_4, @skill_options) %>
+  </div>
+<% end %>
+
+<hr>
+<table>
+<% (1..5).each do |i| %>
+<%= render :partial => 'equipment', :locals => { :slot => i } %>
+<% end %>
+</table>

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  position: 1
+  slots: 1
+  armor_set: 
+  fire_res: 1
+  water_res: 1
+  thunder_res: 1
+  ice_res: 1
+  dragon_res: 1
+  max_defense: 1
+  in_game: false
+
+two:
+  name: MyString
+  position: 1
+  slots: 1
+  armor_set: 
+  fire_res: 1
+  water_res: 1
+  thunder_res: 1
+  ice_res: 1
+  dragon_res: 1
+  max_defense: 1
+  in_game: false

@@ -1,0 +1,29 @@
+<%= form_for([@equipment, @equipment.armor_skill.build]) do |f| %>
+  <% if @armor_skill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@armor_skill.errors.count, "error") %> prohibited this armor_skill from being saved:</h2>
+
+      <ul>
+      <% @armor_skill.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :equipment %><br />
+    <%= @equipment.name %>
+  </div>
+  <div class="field">
+    <%= f.label :skill %><br />
+    <%= f.select(:skill, options_from_collection_for_select(Skill.all, :id, :name, @armor_skill.skill.try(:id))) %> 
+  </div>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.number_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
