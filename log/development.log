@@ -43198,3 +43198,6 @@ Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-05-27 20:00:17
 Served asset /application.js - 200 OK (0ms)
 Connecting to database specified by database.yml
 Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
