@@ -6,7 +6,7 @@
 	@skill_options = "#{@none_option}\n#{@skill_options}".html_safe
 %>
 
-<%= form_tag("", :method => "post") do |f| %>
+<%= form_tag("build_set", :method => "post") do |f| %>
   <div class="field">
     <%= label_tag(:max_defense, 'Max Defense') %><br />
     <%= text_field_tag :max_defense %>
@@ -32,6 +32,22 @@
     <%= text_field_tag :dragon_res %>
   </div>
   <div class="field">
+    <%= label_tag(:rarity, 'Rarity') %><br />
+    <%= text_field_tag :rarity %>
+  </div>
+  <div class="field">
+    <%= label_tag(:price, 'Price') %><br />
+    <%= text_field_tag :price %>
+  </div>
+  <div class="field">
+    <%= label_tag(:blademaster, 'Blademaster Set') %><br />
+    <%= check_box_tag :blademaster %>
+  </div>
+  <div class="field">
+    <%= label_tag(:gunner, 'Gunner Set') %><br />
+    <%= check_box_tag :gunner %>
+  </div>
+  <div class="field">
     <%= label_tag(:skill_1, 'Skill 1') %><br />
     <%= select_tag(:skill_1, @skill_options) %>
   </div>
@@ -47,7 +63,10 @@
     <%= label_tag(:skill_4, 'Skill 4') %><br />
     <%= select_tag(:skill_4, @skill_options) %>
   </div>
-<% end %>
+  <div class="field">
+    <%= label_tag(:skill_5, 'Skill 5') %><br />
+    <%= select_tag(:skill_5, @skill_options) %>
+  </div>
 
 <hr>
 <table>
@@ -55,3 +74,8 @@
 <%= render :partial => 'equipment', :locals => { :slot => i } %>
 <% end %>
 </table>
+
+<div class="field">
+<%= submit_tag('Save') %>
+</div>
+<% end %>

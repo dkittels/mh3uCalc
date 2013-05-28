@@ -1,0 +1,6 @@
+<% skill_select = preferred_skills[skill_index].to_i > 0 ? preferred_skills[skill_index] : 0 %>
+<% skill_select = preferred_skills[skill_index] %>
+  <div class="field">
+	<%=	label_tag("preferred_skill_#{skill_index}", "Preferred Skill #{skill_index}") %><br/>	
+	<%= select_tag("preferred_skill_#{skill_index}", options_from_collection_for_select(skills, :id, :name, skill_select), {:include_blank => 'None'}) %>
+  </div>

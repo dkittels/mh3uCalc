@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514222834) do
+ActiveRecord::Schema.define(:version => 20130527194621) do
 
   create_table "armor_sets", :force => true do |t|
     t.string   "name"
@@ -29,6 +29,29 @@ ActiveRecord::Schema.define(:version => 20130514222834) do
 
   add_index "armor_skills", ["equipment_id"], :name => "index_armor_skills_on_equipment_id"
   add_index "armor_skills", ["skill_id"], :name => "index_armor_skills_on_skill_id"
+
+  create_table "builds", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "generated_description"
+    t.integer  "position_0_id"
+    t.integer  "position_1_id"
+    t.integer  "position_2_id"
+    t.integer  "position_3_id"
+    t.integer  "position_4_id"
+    t.integer  "position_5_id"
+    t.integer  "talisman_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "builds", ["position_0_id"], :name => "index_builds_on_position_0_id"
+  add_index "builds", ["position_1_id"], :name => "index_builds_on_position_1_id"
+  add_index "builds", ["position_2_id"], :name => "index_builds_on_position_2_id"
+  add_index "builds", ["position_3_id"], :name => "index_builds_on_position_3_id"
+  add_index "builds", ["position_4_id"], :name => "index_builds_on_position_4_id"
+  add_index "builds", ["position_5_id"], :name => "index_builds_on_position_5_id"
+  add_index "builds", ["talisman_id"], :name => "index_builds_on_talisman_id"
 
   create_table "equipment", :force => true do |t|
     t.string   "name"
@@ -51,6 +74,16 @@ ActiveRecord::Schema.define(:version => 20130514222834) do
   end
 
   add_index "equipment", ["armor_set_id"], :name => "index_equipment_on_armor_set_id"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "skills", :force => true do |t|
     t.string   "name"

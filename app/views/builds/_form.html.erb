@@ -1,0 +1,35 @@
+<%= form_for(@build) do |f| %>
+  <div class="field">
+    <%= f.label :position_1, 'Head' %><br />
+    <%= f.select(:position_1, options_from_collection_for_select(@head, :id, :name, @build.position_1.try(:id)), {:include_blank => 'None'}) %> 
+  </div>
+  <div class="field">
+    <%= f.label :position_2, 'Chest' %><br />
+    <%= f.select(:position_2, options_from_collection_for_select(@chest, :id, :name, @build.position_2.try(:id)), {:include_blank => 'None'}) %> 
+  </div>
+  <div class="field">
+    <%= f.label :position_3, 'Arms' %><br />
+    <%= f.select(:position_3, options_from_collection_for_select(@arms, :id, :name, @build.position_3.try(:id)), {:include_blank => 'None'}) %> 
+  </div>
+  <div class="field">
+    <%= f.label :position_4, 'Waist' %><br />
+    <%= f.select(:position_4, options_from_collection_for_select(@waist, :id, :name, @build.position_4.try(:id)), {:include_blank => 'None'}) %> 
+  </div>
+  <div class="field">
+    <%= f.label :position_5, 'Legs' %><br />
+    <%= f.select(:position_5, options_from_collection_for_select(@legs, :id, :name, @build.position_5.try(:id)), {:include_blank => 'None'}) %> 
+  </div>
+  <% (1..4).each do |i| %>
+  <%= render :partial => 'preferred_skill', :locals => { :skill_index => i, :skills => @skills, :preferred_skills => @preferred_skills } %>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Fill' %>
+  </div>
+<p>
+<%= @build.generated_description.html_safe %>
+</p>
+
+<% end %>

@@ -1,0 +1,19 @@
+<%= render 'form' %>
+
+<% if @requirements_string != nil %>
+<p>
+<%= @requirements_string.html_safe %>
+</p>
+<% end %>
+
+<% if @recommendations != nil %>
+	<strong>Maybe Try...</strong>
+	<% @recommendations.each do |recommendation| %>
+		<p>
+		<%= recommendation.name %>: 
+		<%= recommendation.skill_string.html_safe %>
+		</p>
+	<% end %>
+<% end %>
+
+<%= link_to 'Back To Builds', builds_path %>

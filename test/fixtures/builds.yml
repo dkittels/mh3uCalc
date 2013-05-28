@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  description: MyString
+  generated_description: MyString
+  position_0: 
+  position_1: 
+  position_2: 
+  position_3: 
+  position_4: 
+  position_5: 
+  talisman: 
+
+two:
+  name: MyString
+  description: MyString
+  generated_description: MyString
+  position_0: 
+  position_1: 
+  position_2: 
+  position_3: 
+  position_4: 
+  position_5: 
+  talisman: 
