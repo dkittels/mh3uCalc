@@ -1,4 +1,4 @@
-<%= form_for([@equipment, @equipment.armor_skill.build]) do |f| %>
+<%= simple_form_for([@equipment, @equipment.armor_skill.build]) do |f| %>
   <% if @armor_skill.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@armor_skill.errors.count, "error") %> prohibited this armor_skill from being saved:</h2>

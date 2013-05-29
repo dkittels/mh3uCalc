@@ -6,14 +6,13 @@
 </p>
 <% end %>
 
-<% if @recommendations != nil %>
+<% if @recommendations != nil && @recommendations.size > 0 %>
 	<strong>Maybe Try...</strong>
-	<% @recommendations.each do |recommendation| %>
-		<p>
-		<%= recommendation.name %>: 
-		<%= recommendation.skill_string.html_safe %>
-		</p>
-	<% end %>
+	<div class="recommendations">
+		<% @recommendations.each do |recommendation| %>
+			<%= render :partial => 'recommendation', :locals => { :recommendation => recommendation } %>
+		<% end %>
+	</div>
 <% end %>
-
-<%= link_to 'Back To Builds', builds_path %>
+<br/>
+<%= link_to 'Back To Builds', builds_path, {:class => 'btn'} %>

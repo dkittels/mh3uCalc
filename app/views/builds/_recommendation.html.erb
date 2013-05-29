@@ -1,0 +1,14 @@
+<div class="recommendation">
+	<div class="recommendation-top">
+		<strong><%= recommendation.name %></strong> <br/>
+		<%= get_position_name( recommendation.position ) %><br/>
+		<%= recommendation.max_defense %> Defense<br/>
+		<%= recommendation.slots %> Slots<br/>
+		<% recommendation.armor_skill.each do |armor_skill| %>
+			<%= armor_skill.skill.name %>: <%= armor_skill.value %><br/>
+		<% end %>
+	</div>
+	<div class="recommendation-bottom">
+		<%= button_to 'Equip', {:controller => "builds", :action => "create", :equipment_id => recommendation.id}, :method => :post %>
+	</div>
+</div>

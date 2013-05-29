@@ -1,23 +1,29 @@
-<h1>Listing armor_sets</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<h1>Armor Sets</h1>
+<p>
+An Armor Set is predefined set of matching armor for either Blademaster or Gunner.  For instance, there are five different pieces of blademaster armor
+you can craft from the parts of a low level Lagiacrus -- this constitutes the Lagiacrus set.
+</p>
+<table class="table">
+	<thead>
+	  <tr>
+		<th>Name</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+	</thead>
+	<tbody>
 <% @armor_sets.each do |armor_set| %>
   <tr>
     <td><%= armor_set.name %></td>
-    <td><%= link_to 'Show', armor_set %></td>
-    <td><%= link_to 'Edit', edit_armor_set_path(armor_set) %></td>
-    <td><%= link_to 'Destroy', armor_set, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', armor_set, {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Edit', edit_armor_set_path(armor_set), {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Destroy', armor_set, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Armor set', new_armor_set_path %>
+<%= link_to 'New Armor set', new_armor_set_path, {:class => 'btn btn-success'} %>

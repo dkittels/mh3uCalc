@@ -1,4 +1,4 @@
-<%= form_for(@equipment) do |f| %>
+<%= simple_form_for(@equipment) do |f| %>
   <% if @equipment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@equipment.errors.count, "error") %> prohibited this equipment from being saved:</h2>

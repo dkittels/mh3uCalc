@@ -1,23 +1,59 @@
 class BuildsController < ApplicationController
 	before_filter :require_build
-	
+
 	def require_build
+		require_equipment
+		
+	
 		if session[:preferred_skills]
 			@preferred_skills = session[:preferred_skills]
 		else
-			@preferred_skills = [ '', '', '', '' ]
+			@preferred_skills = [ nil, nil, nil, nil, nil ]
 		end
-		if params[:buildlolololololololol]
-			@build = Build.find(params[:build])
-			session[:build] = @build
+		
+		if (params[:preferred_skill_1].to_i > 0)
+			@preferred_skills[1] = params[:preferred_skill_1]
+		end
+		if (params[:preferred_skill_2].to_i > 0)
+			@preferred_skills[2] = params[:preferred_skill_2]
+		end
+		if (params[:preferred_skill_3].to_i > 0)
+			@preferred_skills[3] = params[:preferred_skill_3]
+		end
+		if (params[:preferred_skill_4].to_i > 0)
+			@preferred_skills[4] = params[:preferred_skill_4]
+		end
+		
+		session[:preferred_skills] = @preferred_skills
+
+		if session[:build]
+			@build = session[:build]
 		else
-			if session[:build]
-				@build = session[:build]
-			else
-				# new build
-				@build = Build.new
-			end
+			# new build
+			@build = Build.new
 		end
+
+		if (params[:build] != nil)
+			if (params[:build][:position_1] != '') 
+				@build.position_1 = Equipment.find(params[:build][:position_1])
+			end
+			if (params[:build][:position_2] != '') 
+				@build.position_2 = Equipment.find(params[:build][:position_2])
+			end
+			if (params[:build][:position_3] !='') 
+				@build.position_3 = Equipment.find(params[:build][:position_3])
+			end
+			if (params[:build][:position_4] != '') 
+				@build.position_4 = Equipment.find(params[:build][:position_4])
+			end
+			if (params[:build][:position_5] != '') 
+				@build.position_5 = Equipment.find(params[:build][:position_5])
+			end
+			@build.name = params[:build][:name]
+		end
+
+		@build.makeGeneratedDescription
+		session[:build] = @build
 	end
 	
 	def require_equipment
@@ -34,109 +70,92 @@ class BuildsController < ApplicationController
 	end
 	
 	def new
-		require_equipment
+		@build = Build.new
+		session[:build] = @build
+		@build.makeGeneratedDescription
+		@preferred_skills = [ nil, nil, nil, nil, nil ]
+		session[:preferred_skills] = @preferred_skills
 	end
 	
 	def create
-		require_equipment
-		
-		position_1, position_2, position_3, position_4, position_5 = nil, nil, nil, nil, nil
-		
-		if (params[:build][:position_1] != '') 
-			position_1 = Equipment.find(params[:build][:position_1])
-		end
-		if (params[:build][:position_2] != '') 
-			position_2 = Equipment.find(params[:build][:position_2])
-		end
-		if (params[:build][:position_3] !='') 
-			position_3 = Equipment.find(params[:build][:position_3])
-		end
-		if (params[:build][:position_4] != '') 
-			position_4 = Equipment.find(params[:build][:position_4])
-		end
-		if (params[:build][:position_5] != '') 
-			position_5 = Equipment.find(params[:build][:position_5])
-		end
-		
-		if (params[:preferred_skill_1].to_i > 0)
-			@preferred_skills[1] = params[:preferred_skill_1]
-		end
-		if (params[:preferred_skill_2].to_i > 0 != '')
-			@preferred_skills[2] = params[:preferred_skill_2]
-		end
-		if (params[:preferred_skill_3].to_i > 0 != '')
-			@preferred_skills[3] = params[:preferred_skill_3]
-		end
-		if (params[:preferred_skill_4].to_i > 0 != '')
-			@preferred_skills[4] = params[:preferred_skill_4]
+		if params[:equipment_id]
+			new_equip = Equipment.find(params[:equipment_id])
+			
+			case new_equip.position
+			when 0
+				@build.position_0 = new_equip
+			when 1
+				@build.position_1 = new_equip
+			when 2
+				@build.position_2 = new_equip
+			when 3
+				@build.position_3 = new_equip
+			when 4
+				@build.position_4 = new_equip
+			when 5
+				@build.position_5 = new_equip
+			end
+			
+			@build.makeGeneratedDescription
+			
+			session[:build] = @build
 		end
 		
-		session[:preferred_skills] = @preferred_skills
-		
-		@build = Build.new
-		
-		@build.position_1 = position_1
-		@build.position_2 = position_2
-		@build.position_3 = position_3
-		@build.position_4 = position_4
-		@build.position_5 = position_5
+		if params[:commit] == "Save"
+			@build.save
+			redirect_to builds_url
+		else
+			# Figure out what we need...
+			determineRequirements		
+			determineRecommendations
+		end
+	end
+	
+	def edit
+	
+	end
 
-		session[:build] = @build
-		
-		@build.makeGeneratedDescription
-
-		# Figure out what we need...
-		skill_requirements = {} # should come to be a hash of skill => points remaining to get skill
-		
-		@preferred_skills.each do |preferred_skill|
-			if preferred_skill != ''
-				sub_skill = SubSkill.find(preferred_skill)
-				
-				# Positive skill values...
-				if sub_skill.skill_value > 0 
-					if @build.skills[sub_skill.skill] != nil
-						if @build.skills[sub_skill.skill] < sub_skill.skill_value
-							skill_requirements[sub_skill.skill] = sub_skill.skill_value - @build.skills[sub_skill.skill]
-						else
-							# We are in the clear
-						end
+  # should come to be a hash of skill => points remaining to get skill
+  def determineRequirements()
+	@skill_requirements = {}  	
+	logger.debug(@preferred_skills)
+	@preferred_skills.each do |preferred_skill|
+		if preferred_skill != nil && preferred_skill != ''
+			sub_skill = SubSkill.find(preferred_skill)
+			
+			# Positive skill values...
+			if sub_skill.skill_value > 0 
+				if @build.skills[sub_skill.skill] != nil
+					if @build.skills[sub_skill.skill] < sub_skill.skill_value
+						@skill_requirements[sub_skill.skill] = sub_skill.skill_value - @build.skills[sub_skill.skill]
 					else
-						# This skill hasn't even been brought up yet
-						skill_requirements[sub_skill.skill.id] = sub_skill.skill_value
+						# We are in the clear
 					end
+				else
+					# This skill hasn't even been brought up yet
+					@skill_requirements[sub_skill.skill] = sub_skill.skill_value
 				end
 			end
 		end
-		
-		# skill_requirements now contains a hash of what skills still need to be rustled up
-		@recommendations = determineRecommendations(skill_requirements, @build.getOpenings)
-		
-		@requirements_string = "<strong>Points Needed for Preferred Skills</strong><br/>"
-		
-		skill_requirements.each do |(skill_id, value)|
-			skill = Skill.find(skill_id)
-			@requirements_string = "#{@requirements_string}#{skill.name}: #{value}<br/>"
-		end
-		
-		# Decision Making Time
-		if @build.hasOpenings?
-			openings = @build.getOpenings
-			
-			# For the available openings, find some equipment that matches preferred skills that the build still doesn't have
-			# preferred skills - skills the build has
-			
-			
-		end
 	end
+	
+	@requirements_string = "<strong>Points Needed for Preferred Skills</strong><br/>"
+	
+	@skill_requirements.each do |(skill_id, value)|
+		skill = Skill.find(skill_id)
+		@requirements_string = "#{@requirements_string}#{skill.name}: #{value}<br/>"
+	end	
+  end
 
-  def determineRecommendations(skill_requirements, open_positions)
+  def determineRecommendations()
   	skill_ids = []
   	
-  	skill_requirements.each do |(skill,value)|
+  	@skill_requirements.each do |(skill,value)|
   		skill_ids << skill.id
   	end
+	
+	open_positions = @build.getOpenings
   	
-  	recommendations =  Equipment.where(:position => open_positions)
   	query_string = 
   		"select equipment.* from equipment, armor_skills, skills
   		WHERE
@@ -146,9 +165,8 @@ class BuildsController < ApplicationController
   		AND armor_skills.value > 0
   		AND skills.id IN ('#{skill_ids.join("','")}')
   		GROUP BY equipment.id
-  		ORDER BY SUM(armor_skills.value), equipment.max_defense DESC"
-  	recommendations = Equipment.find_by_sql(query_string)
-  	return recommendations
+  		ORDER BY SUM(armor_skills.value), equipment.max_defense, equipment.slots DESC"
+  	@recommendations = Equipment.find_by_sql(query_string).reverse!
   end
 
   def destroy

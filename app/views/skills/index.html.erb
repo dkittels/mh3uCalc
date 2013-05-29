@@ -1,23 +1,26 @@
-<h1>Listing skills</h1>
+<h1>Skills</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<table class="table">
+	<thead>
+	  <tr>
+		<th>Name</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+	</thead>
+	<tbody>
 <% @skills.each do |skill| %>
   <tr>
     <td><%= skill.name %></td>
-    <td><%= link_to 'Show', skill %></td>
-    <td><%= link_to 'Edit', edit_skill_path(skill) %></td>
-    <td><%= link_to 'Destroy', skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', skill, {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Edit', edit_skill_path(skill), {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Destroy', skill, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Skill', new_skill_path %>
+<%= link_to 'New Skill', new_skill_path, {:class => 'btn btn-success'} %>

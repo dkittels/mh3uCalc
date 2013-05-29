@@ -1,0 +1,121 @@
+users
+	id
+	username
+	password
+
+:primary_key, :string, :text, :integer, :float, :decimal, :datetime, :timestamp, :time, :date, :binary, :boolean.
+
+rails generate scaffold equipment name:string blademaster:boolean gunner:boolean position:integer rarity:integer slots:integer price:integer armor_set:references fire_res:integer water_res:integer thunder_res:integer ice_res:integer dragon_res:integer max_defense:integer in_game:boolean
+
+equipment
+	id
+	name
+	blademaster
+	gunner
+	position				## 0 - weapon, 1 - helm, 2 - chest, 3 - arms, 4 - pants, 5 - feet, 6 - talisman
+	rarity
+	slots
+	price
+	armor_set_id			## 0 for non armors
+	fire_res
+	water_res
+	thunder_res
+	ice_res
+	dragon_res
+	max_defense
+	in_game					## boolean declaring whether the item is actually in game or if it's a virtual item 
+	
+rails generate scaffold armor_set name:string
+
+armor_sets
+	id
+	name
+
+rails generate scaffold armor_skill equipment:references skill:references value:integer
+armor_skills
+	id
+	equipment_id
+	skill_id
+	value					## positive or negative
+
+rails generate scaffold skill name:string
+
+skills
+	id
+	name
+
+rails generate scaffold sub_skill name:string skill:references parent_sub_skill:references skill_value:integer
+
+sub_skills 					## different values of skills mean differently named active skills, here called sub skills
+	id
+	name
+	skill_id
+	parent_sub_skill_id  	## applicable only to skills that can be overwritten by a higher skill
+	skill_value				## positive or negative
+	
+
+talismans
+	id
+	name					## Let user make their own name
+	user_id
+	rarity
+	slots
+
+talisman_skills
+	id
+	talisman_id
+	skill_id
+	value
+	
+decorations
+	id
+	name
+	slots
+
+decoration_skills
+	id
+	decoration_id
+	skill_id
+	value
+	
+decoration_placements
+	id
+	decoration_id
+	position
+
+rails generate scaffold build name:string description:string generated_description:string position_0:references position_1:references position_2:references position_3:references position_4:references position_5:references talisman:references
+
+builds
+	id
+	name
+	description				## Text created and saved by the user
+	generated_description	## Text created and saved by the program
+	position_0
+	position_1
+	position_2
+	position_3
+	position_4
+	position_5
+	talisman_id
+
+saved_set_decoration_placements
+	id
+	saved_set_id
+	decoration_placement_id
+
+user_equipment				## Users can save what equipment they have unlocked
+	id
+	user_id
+	equipment_id
+
+crafting_materials
+	id
+	name
+
+equipment_crafting_materials
+	id
+	equipment_id
+	crafting_material_id
+	quantity
+	
+	

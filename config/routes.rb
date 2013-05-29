@@ -1,7 +1,7 @@
 Mh3calc::Application.routes.draw do
   get "set_editor/index"
   post "set_editor/build_set"
-
+  
   resources :armor_skills
 
   resources :sub_skills

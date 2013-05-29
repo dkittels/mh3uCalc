@@ -1,32 +1,52 @@
-<%= form_for(@build) do |f| %>
-  <div class="field">
-    <%= f.label :position_1, 'Head' %><br />
-    <%= f.select(:position_1, options_from_collection_for_select(@head, :id, :name, @build.position_1.try(:id)), {:include_blank => 'None'}) %> 
-  </div>
-  <div class="field">
-    <%= f.label :position_2, 'Chest' %><br />
-    <%= f.select(:position_2, options_from_collection_for_select(@chest, :id, :name, @build.position_2.try(:id)), {:include_blank => 'None'}) %> 
-  </div>
-  <div class="field">
-    <%= f.label :position_3, 'Arms' %><br />
-    <%= f.select(:position_3, options_from_collection_for_select(@arms, :id, :name, @build.position_3.try(:id)), {:include_blank => 'None'}) %> 
-  </div>
-  <div class="field">
-    <%= f.label :position_4, 'Waist' %><br />
-    <%= f.select(:position_4, options_from_collection_for_select(@waist, :id, :name, @build.position_4.try(:id)), {:include_blank => 'None'}) %> 
-  </div>
-  <div class="field">
-    <%= f.label :position_5, 'Legs' %><br />
-    <%= f.select(:position_5, options_from_collection_for_select(@legs, :id, :name, @build.position_5.try(:id)), {:include_blank => 'None'}) %> 
-  </div>
+<%= simple_form_for(@build, :html => {:class => 'form-horizontal'}) do |f| %>
+	<fieldset>
+		<div class="control-group">
+		    <%= f.label :name, 'Build Name', {:class => 'control-label'} %>
+		    <div class="controls">
+			    <%= f.text_field(:name) %> 
+			</div>
+		</div>
+		<div class="control-group">
+		    <%= f.label :position_1, 'Head', {:class => 'control-label'} %>
+		    <div class="controls">
+			    <%= f.select(:position_1, options_from_collection_for_select(@head, :id, :name, @build.position_1.try(:id)), {:include_blank => 'None'}) %> 
+			    <%= "#{@build.position_1.slots} Slots" if @build.position_1 != nil %>
+			</div>
+		</div>
+		<div class="control-group">
+		    <%= f.label :position_2, 'Chest', {:class => 'control-label'} %>
+		    <div class="controls">
+			    <%= f.select(:position_2, options_from_collection_for_select(@chest, :id, :name, @build.position_2.try(:id)), {:include_blank => 'None'}) %> 
+			    <%= "#{@build.position_2.slots} Slots" if @build.position_2 != nil %>
+			</div>
+		</div>
+		<div class="control-group">
+		    <%= f.label :position_3, 'Arms', {:class => 'control-label'} %>
+		    <div class="controls">
+			    <%= f.select(:position_3, options_from_collection_for_select(@arms, :id, :name, @build.position_3.try(:id)), {:include_blank => 'None'}) %> 
+			    <%= "#{@build.position_3.slots} Slots" if @build.position_3 != nil %>
+			</div>
+		</div>
+		<div class="control-group">
+		    <%= f.label :position_4, 'Waist', {:class => 'control-label'} %>
+		    <div class="controls">
+			    <%= f.select(:position_4, options_from_collection_for_select(@waist, :id, :name, @build.position_4.try(:id)), {:include_blank => 'None'}) %> 
+			    <%= "#{@build.position_4.slots} Slots" if @build.position_4 != nil %>
+			</div>
+		</div>
+		<div class="control-group">
+		    <%= f.label :position_5, 'Legs', {:class => 'control-label'} %>
+		    <div class="controls">
+			    <%= f.select(:position_5, options_from_collection_for_select(@legs, :id, :name, @build.position_5.try(:id)), {:include_blank => 'None'}) %> 
+			    <%= "#{@build.position_5.slots} Slots" if @build.position_5 != nil %>
+			</div>
+		</div>
+		<div class="control-group">
   <% (1..4).each do |i| %>
   <%= render :partial => 'preferred_skill', :locals => { :skill_index => i, :skills => @skills, :preferred_skills => @preferred_skills } %>
   <% end %>
   <div class="actions">
-    <%= f.submit %>
-  </div>
-  <div class="actions">
-    <%= f.submit 'Fill' %>
+    <%= f.submit 'Update Build and Get Recommendations', {:class => 'btn'} %>  <%= f.submit('Save', {:class => 'btn btn-success'}) %> 
   </div>
 <p>
 <%= @build.generated_description.html_safe %>

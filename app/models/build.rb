@@ -7,6 +7,7 @@ class Build < ActiveRecord::Base
   belongs_to :position_5, :class_name => "Equipment", :foreign_key => "position_5_id"
   has_one :talisman
   attr_accessible :description, :generated_description, :name, :position_0, :position_1, :position_2, :position_3, :position_4, :position_5, :talisman
+
 #  attr_accessor :position_1, :position_2, :position_3, :position_4, :position_5
 
   def hasOpenings?

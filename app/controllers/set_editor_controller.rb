@@ -132,36 +132,44 @@ class SetEditorController < ApplicationController
 		if (params[:skill_5].to_i != 0)
 			@skill_5 = Skill.find(params[:skill_5])
 		end
+		if (params[:skill_6].to_i != 0)
+			@skill_6 = Skill.find(params[:skill_6])
+		end
 
 		make_armor_skill(@equip_1, @skill_1, params[:skill_1_1])
 		make_armor_skill(@equip_1, @skill_2, params[:skill_2_1])
 		make_armor_skill(@equip_1, @skill_3, params[:skill_3_1])
 		make_armor_skill(@equip_1, @skill_4, params[:skill_4_1])
 		make_armor_skill(@equip_1, @skill_5, params[:skill_5_1])
+		make_armor_skill(@equip_1, @skill_6, params[:skill_6_1])
 
 		make_armor_skill(@equip_2, @skill_1, params[:skill_1_2])
 		make_armor_skill(@equip_2, @skill_2, params[:skill_2_2])
 		make_armor_skill(@equip_2, @skill_3, params[:skill_3_2])
 		make_armor_skill(@equip_2, @skill_4, params[:skill_4_2])
 		make_armor_skill(@equip_2, @skill_5, params[:skill_5_2])
+		make_armor_skill(@equip_2, @skill_6, params[:skill_6_2])
 
 		make_armor_skill(@equip_3, @skill_1, params[:skill_1_3])
 		make_armor_skill(@equip_3, @skill_2, params[:skill_2_3])
 		make_armor_skill(@equip_3, @skill_3, params[:skill_3_3])
 		make_armor_skill(@equip_3, @skill_4, params[:skill_4_3])
 		make_armor_skill(@equip_3, @skill_5, params[:skill_5_3])
+		make_armor_skill(@equip_3, @skill_6, params[:skill_6_3])
 
 		make_armor_skill(@equip_4, @skill_1, params[:skill_1_4])
 		make_armor_skill(@equip_4, @skill_2, params[:skill_2_4])
 		make_armor_skill(@equip_4, @skill_3, params[:skill_3_4])
 		make_armor_skill(@equip_4, @skill_4, params[:skill_4_4])
 		make_armor_skill(@equip_4, @skill_5, params[:skill_5_4])
+		make_armor_skill(@equip_4, @skill_6, params[:skill_6_4])
 
 		make_armor_skill(@equip_5, @skill_1, params[:skill_1_5])
 		make_armor_skill(@equip_5, @skill_2, params[:skill_2_5])
 		make_armor_skill(@equip_5, @skill_3, params[:skill_3_5])
 		make_armor_skill(@equip_5, @skill_4, params[:skill_4_5])
 		make_armor_skill(@equip_5, @skill_5, params[:skill_5_5])
+		make_armor_skill(@equip_5, @skill_6, params[:skill_6_5])
 		
 		redirect_to( armor_sets_url )
 		

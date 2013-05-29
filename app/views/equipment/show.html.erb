@@ -62,8 +62,8 @@
 <% end %> 
 </p>
 
-<%= link_to 'Edit', edit_equipment_path(@equipment) %> |
-<%= link_to 'Back', equipment_index_path %> |
-<%= link_to 'Edit Skiils', equipment_armor_skills_path(@equipment) %> |
-<%= link_to 'New Skill', new_equipment_armor_skill_path(@equipment) %>
+<%= link_to 'Edit', edit_equipment_path(@equipment), {:class => 'btn'} %> 
+<%= link_to 'Back', equipment_index_path, {:class => 'btn'} %> 
+<%= link_to 'Edit Skiils', equipment_armor_skills_path(@equipment), {:class => 'btn'} %> 
+<%= link_to 'New Skill', new_equipment_armor_skill_path(@equipment), {:class => 'btn'} %>
 

@@ -1,28 +1,35 @@
-<h1>Listing Builds</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Generated Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<h1>Builds</h1>
+<p>
+Builds are where the magic happens.  Each build represents a chosen set of equipment, including 5 parts of armor,
+1 weapon, 1 talisman, and any decoration placements.  The entire concept behind this tool is to help users
+create best builds with the skills they want.
+</p>
+<table class="table">
+	<thead>
+	  <tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Generated Description</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+	</thead>
+	<tbody>
 <% @builds.each do |build| %>
   <tr>
     <td><%= build.name %></td>
-    <td><%= build.description %></td>
-    <td><%= build.generated_description %></td>
-    <td><%= link_to 'Show', build_path(build) %></td>
-    <td><%= link_to 'Edit', edit_build_path(build) %></td>
-    <td><%= link_to 'Destroy', build, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= build.description.html_safe if build.description != nil %></td>
+    <td><%= build.generated_description.html_safe if build.generated_description != nil %></td>
+    <td><%= link_to 'Show', build_path(build), {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Edit', edit_build_path(build), {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Destroy', build, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Build', new_build_path %> | 
+<%= link_to 'New Build', new_build_path, {:class => 'btn btn-success'} %> | 
 

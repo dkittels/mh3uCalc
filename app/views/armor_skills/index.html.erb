@@ -1,31 +1,35 @@
 <h1>Listing Armor Skills for <%= @equipment.name %></h1>
 
-<table>
-  <tr>
-    <th>Equipment</th>
-    <th>Skill</th>
-    <th>Value</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table">
+	<thead>
+	  <tr>
+		<th>Equipment</th>
+		<th>Skill</th>
+		<th>Value</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+	</thead>
+	<tbody>
 
 <% @equipment.armor_skill.each do |armor_skill| %>
   <tr>
     <td><%= armor_skill.equipment.name %></td>
     <td><%= armor_skill.skill.name %></td>
     <td><%= armor_skill.value %></td>
-    <td><%= link_to 'Show', [@equipment, armor_skill] %></td>
-    <td><%= link_to 'Edit', edit_equipment_armor_skill_path(@equipment, armor_skill) %></td>
-    <td><%= link_to 'Destroy', [@equipment, armor_skill], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', [@equipment, armor_skill], {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Edit', edit_equipment_armor_skill_path(@equipment, armor_skill), {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Destroy', [@equipment, armor_skill], method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Armor skill', new_equipment_armor_skill_path %> | 
-<%= link_to "Back to #{@equipment.name}", @equipment %> | 
-<%= link_to "New Equipment", new_equipment_path %> |
-<%= link_to "Equipment", equipment_index_path %> |
+<%= link_to 'New Armor skill', new_equipment_armor_skill_path, {:class => 'btn'} %> | 
+<%= link_to "Back to #{@equipment.name}", @equipment, {:class => 'btn'} %> | 
+<%= link_to "New Equipment", new_equipment_path, {:class => 'btn'} %> |
+<%= link_to "Equipment", equipment_index_path, {:class => 'btn'} %> |
 

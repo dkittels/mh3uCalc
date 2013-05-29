@@ -5,14 +5,24 @@
   <%= @skill.name %>
 </p>
 
+
+<p>
+	<b>Sub Skills</b>
+	<% @sub_skills = @skill.sub_skills.sort_by(&:skill_value).reverse! 
+		@sub_skills.each do |sub_skill| %>
+		<%= sub_skill.name %> (<%= sub_skill.skill_value %>),
+	<% end %> 
+</p>
+
 <p>
 	<b>Found On Armors:</b>
 <% @armor_skills = @skill.armor_skills.sort_by(&:value).reverse! 
 	@armor_skills.each do |armor_skill| %>
+	<% logger.debug("ARMOR SKILL MORE LIKE #{armor_skill.inspect}") %>
 	<%= armor_skill.equipment.name %> <%= armor_skill.value %>,
 <% end %> 
 </p>
 
-<%= link_to 'Edit', edit_skill_path(@skill) %> |
-<%= link_to 'Back', skills_path %> |
-<%= link_to 'Make New Skill', new_skill_path %>
+<%= link_to 'Edit', edit_skill_path(@skill), {:class => 'btn'} %> 
+<%= link_to 'Back', skills_path , {:class => 'btn'}%> 
+<%= link_to 'Make New Skill', new_skill_path, {:class => 'btn'} %>

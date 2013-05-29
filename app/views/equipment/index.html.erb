@@ -1,22 +1,24 @@
-<h1>Listing equipment</h1>
+<h1>Equipment</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Position</th>
-    <th>Slots</th>
-    <th>Armor set</th>
-    <th>Fire res</th>
-    <th>Water res</th>
-    <th>Thunder res</th>
-    <th>Ice res</th>
-    <th>Dragon res</th>
-    <th>Max defense</th>
-    <th>In game</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table">
+	<thead>
+	  <tr>
+		<th>Name</th>
+		<th>Position</th>
+		<th>Slots</th>
+		<th>Armor set</th>
+		<th>Fire res</th>
+		<th>Water res</th>
+		<th>Thunder res</th>
+		<th>Ice res</th>
+		<th>Dragon res</th>
+		<th>Max defense</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+	</thead>
+	<tbody>
 
 <% @equipment.each do |equipment| %>
   <tr>
@@ -30,14 +32,14 @@
     <td><%= equipment.ice_res %></td>
     <td><%= equipment.dragon_res %></td>
     <td><%= equipment.max_defense %></td>
-    <td><%= equipment.in_game %></td>
-    <td><%= link_to 'Show', equipment %></td>
-    <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>
-    <td><%= link_to 'Destroy', equipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', equipment, {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Edit', edit_equipment_path(equipment), {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Destroy', equipment, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Equipment', new_equipment_path %>
+<%= link_to 'New Equipment', new_equipment_path, {:class => 'btn btn-success'} %>
