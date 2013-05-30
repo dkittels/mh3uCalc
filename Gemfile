@@ -5,6 +5,8 @@ gem 'rails', '3.2.13'
 gem 'therubyracer'
 gem 'bootstrap-sass'
 gem 'simple_form'
+gem 'bcrypt-ruby'
+gem 'devise'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
