@@ -1,4 +1,16 @@
 class ArmorSkillsController < ApplicationController
+  before_filter :restrict_admin_actions
+  
+  def restrict_admin_actions
+    logger.debug(params)
+  	if !current_user.admin?
+  		restricted_actions = ['create','update','destroy']
+  		if restricted_actions.include?(params[:action])
+	  		redirect_to armor_skills_url, alert: 'That action is not permitted to you.'
+  		end
+  	end
+  end
+  
   # GET /armor_skills
   # GET /armor_skills.json
   def index

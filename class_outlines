@@ -24,12 +24,8 @@ equipment
 	dragon_res
 	max_defense
 	in_game					## boolean declaring whether the item is actually in game or if it's a virtual item 
-<<<<<<< HEAD
 ?? Should I have a "gem_for(skill)" function?  Almost definitely, and then have the get_skill_values function take that in to account 
 
-=======
-	
->>>>>>> 28ff4b35ed496ccbc8d01196e4b211c42b2e3c9b
 rails generate scaffold armor_set name:string
 
 armor_sets
@@ -57,7 +53,8 @@ sub_skills 					## different values of skills mean differently named active skil
 	skill_id
 	parent_sub_skill_id  	## applicable only to skills that can be overwritten by a higher skill
 	skill_value				## positive or negative
-	
+
+rails generate model User username:string 
 
 talismans
 	id

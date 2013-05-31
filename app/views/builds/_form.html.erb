@@ -1,4 +1,4 @@
-<%= simple_form_for(@build, :html => {:class => 'form-horizontal'}) do |f| %>
+<%= simple_form_for(@build, :url => { :action => 'create'}, :method => 'post', :html => {:class => 'form-horizontal'}) do |f| %>
 	<fieldset>
 		<div class="control-group">
 		    <%= f.label :name, 'Build Name', {:class => 'control-label'} %>
@@ -46,7 +46,7 @@
   <%= render :partial => 'preferred_skill', :locals => { :skill_index => i, :skills => @skills, :preferred_skills => @preferred_skills } %>
   <% end %>
   <div class="actions">
-    <%= f.submit 'Update Build and Get Recommendations', {:class => 'btn'} %>  <%= f.submit('Save', {:class => 'btn btn-success'}) %> 
+    <%= f.submit 'Update Build and Get Recommendations', :class => 'btn', :action => 'create' %>  <%= f.submit('Save', {:class => 'btn btn-success'}) %> 
   </div>
 <p>
 <%= @build.generated_description.html_safe %>

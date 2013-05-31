@@ -1,6 +1,7 @@
 class BuildsController < ApplicationController
 	before_filter :require_build
-
+    before_filter :restrict_admin_actions
+  
 	def require_build
 		require_equipment
 		
@@ -26,7 +27,9 @@ class BuildsController < ApplicationController
 		
 		session[:preferred_skills] = @preferred_skills
 
-		if session[:build]
+		if params[:id]
+			@build = Build.find(params[:id])
+		elsif session[:build]
 			@build = session[:build]
 		else
 			# new build
@@ -34,6 +37,12 @@ class BuildsController < ApplicationController
 		end
 
 		if (params[:build] != nil)
+			@build.position_1 = nil
+			@build.position_2 = nil
+			@build.position_3 = nil
+			@build.position_4 = nil
+			@build.position_5 = nil
+
 			if (params[:build][:position_1] != '') 
 				@build.position_1 = Equipment.find(params[:build][:position_1])
 			end
@@ -55,6 +64,16 @@ class BuildsController < ApplicationController
 		@build.makeGeneratedDescription
 		session[:build] = @build
 	end
+
+	def restrict_admin_actions
+		logger.debug(params)
+		if !current_user.admin? && current_user != @build.user
+			restricted_actions = ['create','update','destroy']
+			if restricted_actions.include?(params[:action])
+				redirect_to builds_url, alert: 'That action is not permitted to you.'
+			end
+		end
+	end	
 	
 	def require_equipment
 		@skills = SubSkill.all

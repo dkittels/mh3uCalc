@@ -1,4 +1,6 @@
 Mh3calc::Application.routes.draw do
+  devise_for :users
+
   get "set_editor/index"
   post "set_editor/build_set"
   
@@ -16,6 +18,7 @@ Mh3calc::Application.routes.draw do
   
   resources :builds
   
+  devise_for :users  
   
   get "home/index"
 

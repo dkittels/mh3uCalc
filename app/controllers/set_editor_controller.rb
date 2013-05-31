@@ -1,6 +1,7 @@
 class SetEditorController < ApplicationController
 	before_filter :require_armor_set
-	
+    before_filter :restrict_admin_actions
+
 	def require_armor_set
 		if params[:armor_set]
 			@armor_set = ArmorSet.find(params[:armor_set])
@@ -13,7 +14,18 @@ class SetEditorController < ApplicationController
 			end
 		end
 	end
-		
+
+  
+  def restrict_admin_actions
+    logger.debug(params)
+  	if !current_user.admin?
+  		restricted_actions = ['create','update','destroy']
+  		if restricted_actions.include?(params[:action])
+	  		redirect_to equipment_index_url, alert: 'That action is not permitted to you.'
+  		end
+  	end
+  end	
+  
 	def index
 		@skills = Skill.all
 	end
