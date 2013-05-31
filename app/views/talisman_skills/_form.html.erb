@@ -1,0 +1,25 @@
+<%= simple_form_for([@talisman, @talisman.talisman_skill.build]) do |f| %>
+  <% if @talisman_skill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@talisman_skill.errors.count, "error") %> prohibited this talisman_skill from being saved:</h2>
+
+      <ul>
+      <% @talisman_skill.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :skill, {:class => 'control-label'} %>
+    <%= f.select(:skill, options_from_collection_for_select(Skill.all, :id, :name, @talisman_skill.skill.try(:id))) %> 
+  </div>
+  <div class="field">
+    <%= f.label :value, {:class => 'control-label'} %>
+    <%= f.number_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit :class => 'btn btn-success' %>
+  </div>
+<% end %>

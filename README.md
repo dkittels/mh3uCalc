@@ -40,10 +40,11 @@ with the project.
 
 To Do
 ========
-- Ajax armor description in build so user can see where they are going in real time
-- Decorations (and placing them algorithmically first and last)
-- User Registration
-- User Defined Talismans
-- Automated Armor Building w/ several concurrent instances
 - Add gunner sets
-- Add decorations
+- Add decoration class and data entry
+- Decorations consideration (and placing them algorithmically first and last)
+- Ajax armor description in build so user can see where they are going in real time
+- Automated Armor Building w/ several concurrent instances
+- Display recommendations in rows based on equipment position
+- Rank skills by how common they are and weight that in to considerations (for example, Handicraft is much
+	more rare than wide-range)

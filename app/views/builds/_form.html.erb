@@ -41,6 +41,14 @@
 			    <%= "#{@build.position_5.slots} Slots" if @build.position_5 != nil %>
 			</div>
 		</div>
+		<% logger.debug(@build.talisman.inspect) %>
+		<div class="control-group">
+		    <%= f.label :talisman, 'Talisman', {:class => 'control-label'} %>
+		    <div class="controls">
+			    <%= f.select(:talisman, options_from_collection_for_select(@talismans, :id, :name, @build.talisman.try(:id)), {:include_blank => 'None'}) %> 
+			    <%= "#{@build.talisman.slots} Slots" if @build.talisman != nil %>
+			</div>
+		</div>
 		<div class="control-group">
   <% (1..4).each do |i| %>
   <%= render :partial => 'preferred_skill', :locals => { :skill_index => i, :skills => @skills, :preferred_skills => @preferred_skills } %>

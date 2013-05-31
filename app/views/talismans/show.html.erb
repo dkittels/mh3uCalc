@@ -1,0 +1,30 @@
+<p>
+  <b>Name:</b>
+  <%= @talisman.name %>
+</p>
+
+<p>
+  <b>Rarity:</b>
+  <%= @talisman.rarity %>
+</p>
+
+<p>
+  <b>Slots:</b>
+  <%= @talisman.slots %>
+</p>
+<p>
+	<b>Talisman Skills:</b>
+	<ul>
+<% @talisman.talisman_skill.each do |talisman_skill| %>
+	<li>	<%= talisman_skill.skill.name %> <%= talisman_skill.value %> </li>
+<% end %> 
+	</ul>
+</p>
+
+
+<%= link_to 'Edit', edit_talisman_path(@talisman), :class => 'btn' %> 
+<%= link_to 'New Talisman', new_talisman_path, :class => 'btn' %>
+<%= link_to 'Back', talismans_path, :class => 'btn' %>
+<%= link_to 'Edit Skiils', talisman_talisman_skills_path(@talisman), {:class => 'btn'} %> 
+<%= link_to 'New Skill', new_talisman_talisman_skill_path(@talisman), {:class => 'btn'} %>
+

@@ -54,14 +54,24 @@ sub_skills 					## different values of skills mean differently named active skil
 	parent_sub_skill_id  	## applicable only to skills that can be overwritten by a higher skill
 	skill_value				## positive or negative
 
-rails generate model User username:string 
+rails generate model User username:string admin:boolean
+
+# Most of the authentication stuff is handled by Devise, here is the bare minimum
+users
+	id
+	username
+	admin
+
+rails generate scaffold talisman name:string user:references rarity:integer slots:integer
 
 talismans
 	id
-	name					## Let user make their own name
+	name					## Let user make their own name as an alias, in game name can be distinguished from rarity
 	user_id
 	rarity
 	slots
+
+rails generate scaffold talisman_skill talisman:references skill:references value:integer
 
 talisman_skills
 	id

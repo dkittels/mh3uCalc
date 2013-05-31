@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  talisman: 
+  skill: 
+  value: 1
+
+two:
+  talisman: 
+  skill: 
+  value: 1

@@ -10,7 +10,11 @@
 	<strong>Maybe Try...</strong>
 	<div class="recommendations">
 		<% @recommendations.each do |recommendation| %>
-			<%= render :partial => 'recommendation', :locals => { :recommendation => recommendation } %>
+			<% if recommendation.is_a?(Equipment) %>
+				<%= render :partial => 'recommendation', :locals => { :recommendation => recommendation } %>
+			<% elsif recommendation.is_a?(Talisman) %>
+				<%= render :partial => 'talisman_recommendation', :locals => { :recommendation => recommendation } %>
+			<% end %>
 		<% end %>
 	</div>
 <% end %>

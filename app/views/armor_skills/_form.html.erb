@@ -12,15 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :equipment %><br />
+    <%= f.label :equipment, {:class => 'control-label'} %><br />
     <%= @equipment.name %>
   </div>
   <div class="field">
-    <%= f.label :skill %><br />
+    <%= f.label :skill, {:class => 'control-label'} %><br />
     <%= f.select(:skill, options_from_collection_for_select(Skill.all, :id, :name, @armor_skill.skill.try(:id))) %> 
   </div>
   <div class="field">
-    <%= f.label :value %><br />
+    <%= f.label :value, {:class => 'control-label'} %><br />
     <%= f.number_field :value %>
   </div>
 <% end %>

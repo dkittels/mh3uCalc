@@ -1,0 +1,32 @@
+<h1>Your Talismans</h1>
+
+<table class="table">
+	<thead>
+	  <tr>
+		<th>Name</th>
+		<th>User</th>
+		<th>Rarity</th>
+		<th>Slots</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	  </tr>
+	</thead>
+	<tbody>
+<% @talismans.each do |talisman| %>
+  <tr>
+    <td><%= talisman.name %></td>
+    <td><%= talisman.user.username %></td>
+    <td><%= talisman.rarity %></td>
+    <td><%= talisman.slots %></td>
+    <td><%= link_to 'Show', talisman, {:class => 'btn btn-mini'} %></td>
+    <td><%= link_to 'Edit', edit_talisman_path(talisman), {:class => 'btn btn-mini'}  %></td>
+    <td><%= link_to 'Destroy', talisman, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger'  %></td>
+  </tr>
+<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Talisman', new_talisman_path, :class => 'btn' %>

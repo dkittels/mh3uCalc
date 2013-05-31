@@ -1,0 +1,2 @@
+module TalismansHelper
+end

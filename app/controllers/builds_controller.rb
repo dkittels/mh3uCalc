@@ -42,6 +42,7 @@ class BuildsController < ApplicationController
 			@build.position_3 = nil
 			@build.position_4 = nil
 			@build.position_5 = nil
+			@build.talisman = nil;
 
 			if (params[:build][:position_1] != '') 
 				@build.position_1 = Equipment.find(params[:build][:position_1])
@@ -58,6 +59,9 @@ class BuildsController < ApplicationController
 			if (params[:build][:position_5] != '') 
 				@build.position_5 = Equipment.find(params[:build][:position_5])
 			end
+			if (params[:build][:talisman] != '') 
+				@build.talisman = Talisman.find(params[:build][:talisman])
+			end
 			@build.name = params[:build][:name]
 		end
 
@@ -66,7 +70,7 @@ class BuildsController < ApplicationController
 	end
 
 	def restrict_admin_actions
-		logger.debug(params)
+		logger.debug(@build.inspect)
 		if !current_user.admin? && current_user != @build.user
 			restricted_actions = ['create','update','destroy']
 			if restricted_actions.include?(params[:action])
@@ -82,14 +86,20 @@ class BuildsController < ApplicationController
 		@arms = Equipment.where("position = 3")	
 		@waist = Equipment.where("position = 4")
 		@legs = Equipment.where("position = 5")
+		@talismans = Talisman.where("user_id = ?", current_user.id)
 	end
 		
-	def index
-		@builds = Build.all
+	def index		
+		if (current_user.admin?) 
+			@builds = Build.all
+		elsif 
+			@builds = Build.where("user_id = ?", current_user.id)		
+		end
 	end
 	
 	def new
 		@build = Build.new
+		@build.user = current_user
 		session[:build] = @build
 		@build.makeGeneratedDescription
 		@preferred_skills = [ nil, nil, nil, nil, nil ]
@@ -114,11 +124,15 @@ class BuildsController < ApplicationController
 			when 5
 				@build.position_5 = new_equip
 			end
-			
-			@build.makeGeneratedDescription
-			
-			session[:build] = @build
 		end
+
+		if params[:talisman_id]
+			new_talisman = Talisman.find(params[:talisman_id])
+			@build.talisman = new_talisman
+		end
+
+		@build.makeGeneratedDescription
+		session[:build] = @build
 		
 		if params[:commit] == "Save"
 			@build.save
@@ -176,7 +190,7 @@ class BuildsController < ApplicationController
 	open_positions = @build.getOpenings
   	
   	query_string = 
-  		"select equipment.* from equipment, armor_skills, skills
+  		"select equipment.*, SUM(armor_skills.value) as preferred_skill_value from equipment, armor_skills, skills
   		WHERE
   		equipment.position IN ('#{open_positions.join("','")}')
   		AND armor_skills.equipment_id = equipment.id
@@ -184,8 +198,26 @@ class BuildsController < ApplicationController
   		AND armor_skills.value > 0
   		AND skills.id IN ('#{skill_ids.join("','")}')
   		GROUP BY equipment.id
-  		ORDER BY SUM(armor_skills.value), equipment.max_defense, equipment.slots DESC"
-  	@recommendations = Equipment.find_by_sql(query_string).reverse!
+  		ORDER BY preferred_skill_value DESC, equipment.slots DESC, equipment.max_defense DESC LIMIT 20"
+  	@recommendations = Equipment.find_by_sql(query_string)
+  	@recommendations.sort! {|a,b| a[:position] <=> b[:position]}
+
+  	if @build.talisman == nil
+		# Get some good talismans...
+		query_string = "select talismans.*, SUM(talisman_skills.value) from talismans, talisman_skills, skills
+		WHERE
+  		talisman_skills.talisman_id = talismans.id
+  		AND talisman_skills.skill_id = skills.id
+  		AND talisman_skills.value > 0
+  		AND skills.id IN ('#{skill_ids.join("','")}')
+  		AND talismans.user_id = #{current_user.id}
+  		GROUP BY talismans.id
+  		ORDER BY SUM(talisman_skills.value) DESC, talismans.slots DESC LIMIT 6"
+  		
+  		Talisman.find_by_sql(query_string).each do |entry|
+  			@recommendations << entry
+  		end
+  	end
   end
 
   def destroy

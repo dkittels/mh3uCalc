@@ -1,0 +1,14 @@
+<div class="recommendation talisman-recommendation">
+	<div class="recommendation-top">
+		<strong><%= recommendation.name %></strong> <br/>
+		Talisman<br/>
+		<%= recommendation.rarity %> Rarity<br/>
+		<%= recommendation.slots %> Slots<br/>
+		<% recommendation.talisman_skill.each do |talisman_skill| %>
+			<%= talisman_skill.skill.name %>: <%= talisman_skill.value %><br/>
+		<% end %>
+	</div>
+	<div class="recommendation-bottom">
+		<%= button_to 'Equip', {:controller => "builds", :action => "create", :talisman_id => recommendation.id}, :method => :post, :class => "btn btn-small btn-block" %>
+	</div>
+</div>

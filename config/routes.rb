@@ -8,6 +8,8 @@ Mh3calc::Application.routes.draw do
 
   resources :sub_skills
 
+  resources :talisman_skills
+
   resources :skills
 
   resources :armor_sets
@@ -15,6 +17,11 @@ Mh3calc::Application.routes.draw do
   resources :equipment do
   	resources :armor_skills
   end
+
+  resources :talismans do
+  	resources :talisman_skills
+  end
+
   
   resources :builds
   

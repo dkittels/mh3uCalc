@@ -13,3 +13,9 @@
 # ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+
+ActiveSupport::Inflector.inflections do |inflect|
+        inflect.plural "talisman", "talismans"
+        inflect.plural "talisman_skill", "talisman_skills"
+end

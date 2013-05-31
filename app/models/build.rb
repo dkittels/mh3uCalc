@@ -6,10 +6,8 @@ class Build < ActiveRecord::Base
   belongs_to :position_4, :class_name => "Equipment", :foreign_key => "position_4_id"
   belongs_to :position_5, :class_name => "Equipment", :foreign_key => "position_5_id"
   belongs_to :user
-  has_one :talisman
-  attr_accessible :description, :generated_description, :name, :position_0, :position_1, :position_2, :position_3, :position_4, :position_5, :talisman
-
-#  attr_accessor :position_1, :position_2, :position_3, :position_4, :position_5
+  belongs_to :talisman
+  attr_accessible :description, :generated_description, :name, :position_0, :position_1, :position_2, :position_3, :position_4, :position_5, :talisman, :user
 
   def hasOpenings?
     return true if getOpenings.length > 0
@@ -63,6 +61,7 @@ class Build < ActiveRecord::Base
   	skills_hash = Build.mergeSkills(skills_hash, self.position_3.getSkillValues) if self.position_3 != nil
   	skills_hash = Build.mergeSkills(skills_hash, self.position_4.getSkillValues) if self.position_4 != nil
   	skills_hash = Build.mergeSkills(skills_hash, self.position_5.getSkillValues) if self.position_5 != nil
+  	skills_hash = Build.mergeSkills(skills_hash, self.talisman.getSkillValues) if self.talisman != nil
 
 	return skills_hash
   end
